@@ -1,0 +1,54 @@
+# ============================================
+# Zike Bot - Docker Compose
+# Built by Arsh (escapingdum)
+# ============================================
+# Usage:
+#   1. Copy .env.example to .env and fill in your tokens
+#   2. Run: docker-compose up -d
+#   3. View logs: docker-compose logs -f
+#   4. Stop: docker-compose down
+# ============================================
+
+version: '3.8'
+
+services:
+  zike-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zike-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # Persistent storage for the JSON database
+      - zike-data:/app/data
+      # Optional: mount logs directory
+      # - ./logs:/app/logs
+    # Resource limits (adjust as needed)
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+    # Logging configuration (prevents log file bloat)
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # Health check
+    healthcheck:
+      test: ["CMD", "node", "-e", "process.exit(0)"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+# Named volume for persistent data
+volumes:
+  zike-data:
+    driver: local

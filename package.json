@@ -1,0 +1,23 @@
+{
+  "name": "zike-bot",
+  "version": "1.0.0",
+  "description": "Zike - A crazy AI-powered all-in-one Discord bot built by Arsh",
+  "main": "src/index.js",
+  "author": "Arsh (escapingdum)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "groq-sdk": "^0.7.0",
+    "lavalink-client": "^2.10.3",
+    "ms": "^2.1.3"
+  }
+}
